@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Pet Depot</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- The element where Vue will mount -->
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+        </header>
+        <main>
+            <figure>
+                <img v-bind:src="product.image">
+            </figure>
+            <!-- Data can be plugged in using v directives (v-) or mustache template -->
+            <h2>{{product.title}}</h2>
+            <!-- Use v-html over v-text to render embedded html tags like <em> -->
+            <!-- <p v-text="product.description"></p> -->
+            <p v-html="product.description"></p>
+
+            <p>Price: {{product.price}}</p>
+
+            <button v-on:click="addToCart">
+                Add to Cart
+            </button>
+        </main>
+    </div>
+    <script>
+        let webstore = new Vue({ // The Vue instance
+            el: "#app", // The css selector to target
+            data: {
+                // the key 'sitename' is refered to in v-text above
+                sitename: 'Vue.js Pet Depot',
+                product: {
+                    id: 1001,
+                    title: "Cat Food, 25lb bag",
+                    description: "A 25 pound bag of <em>irresistible</em>, " + "organic goodness for your cat.",
+                    price: 2000,
+                    image: "images/cat.jpeg"
+                },
+                cart: [], // array to store purchased items
+            },
+            methods: {
+                addToCart: function () {
+                    this.cart.push(this.product.id);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
